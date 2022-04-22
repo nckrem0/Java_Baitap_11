@@ -1,4 +1,5 @@
 .fillin_main{
+    align-items: center;
     position: relative;
     padding-top: $pd-7;
     .fillin {
@@ -20,13 +21,18 @@
             .content{
                 padding: 0px 25px;
                 position: relative;
+                
                 h1 {
                     padding: $pd-5 0px;
                     @include styleText ($fs-7,$fw-5,$color-dark-1)
                 }
                 .infomation{
                     display: flex;
+                    justify-content: space-between;
                     gap: 20px;
+                    .infomation__user{
+                        flex: 1;
+                    }
                     i {
                         position: absolute  ;
                         padding-top: 15px;
@@ -35,10 +41,14 @@
                         pointer-events: none;
                     }
                     input {
+                        outline: 0;
                         padding: 10px 0px 10px 30px ;
                         border: 1px solid rgba(0,0,0,.1);
                         border-radius: 20px;
                         width: 100%;
+                        &:focus{
+                            border: 1px solid $color-gray-1;
+                        }
                     }
                     
                 }
@@ -53,10 +63,14 @@
                         pointer-events: none;
                     }
                     #country {
+                        outline: 0;
                         padding: 10px 0px 10px 30px ;
                         border: 1px solid rgba(0,0,0,.1);
                         border-radius: 20px;
                         width: 100%;
+                        &:focus{
+                            border: 1px solid $color-gray-1;
+                        }
                     }
                 }
                 .comment{
@@ -69,10 +83,14 @@
                         pointer-events: none;
                     }
                     textarea {
+                        outline: 0;
                         padding: 10px 0px 10px 30px ;
                         border: 1px solid rgba(0,0,0,.1);
                         border-radius: 20px;
                         width: 100%;
+                        &:focus{
+                            border: 1px solid $color-gray-1;
+                        }
                     }
                 }
                 .btnfillin {
@@ -84,17 +102,13 @@
                     margin-top: $mg-8;
                     margin-bottom: $mg-8;
                     transition: 0.5s;
+                    outline: 0;
                     &:hover {
                         background-color: $color-light-1;
                         color: $color-pink-1;
                         box-shadow: 0 0 0 1px $color-pink-1 inset;    
                     }
                 }
-                // @include responsive("large-down"){
-                //     .content{
-
-                //     }
-                // }
             }
         }
 
