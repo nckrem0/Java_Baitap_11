@@ -76,8 +76,8 @@ function Validation (){
         document.getElementById(errorID).style.display="block";
         return false
     }
-    this.checkUsername = function (value,errorID,msg) {
-        if (value === "nckrem") {
+    this.checkUsername = function (status,errorID,msg) {
+        if (status == 0) {
             document.getElementById(errorID).innerHTML = msg ;
             document.getElementById(errorID).style.display ="block";
             return false
@@ -86,17 +86,7 @@ function Validation (){
         document.getElementById(errorID).style.display="none";
         return true 
     }
-    var validationService = new Services ();
-    function getDataService() {
-        validationService.fetchData()
-    .then(function(result){
-        renderHTML(result.data);
-        console.log(result.data);
-    })
-    .catch(function(error){
-        console.log(error);
-    })
-    }
+    
 }
 
 

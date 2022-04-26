@@ -2,9 +2,6 @@
 var validation = new Validation();
 function getInfobyUser() {
   var username = document.getElementById("TaiKhoan").value;
-  // if (username == ) {
-    
-  // }
   var name = document.getElementById("HoTen").value;
   var password = document.getElementById("MatKhau").value;
   var email = document.getElementById("Email").value;
@@ -132,7 +129,7 @@ function renderHTML(arrProducts) {
 function deletebyID(id) {
   services
     .deleteProduct(id)
-    .then(function () {
+    .then(function (result) {
       getListProducts();
     })
     .catch(function (error) {
@@ -155,9 +152,16 @@ function addProduct() {
   if (product) {
     services
       .addProductbyUser(product)
-      .then(function () {
-        getListProducts();
-
+      .then(function (result) {
+        console.log(result);
+        if(result.status == 0)
+        {
+          validation.checkUsername(result.status, "divErrorUserName", "(*) Tài Khoản Đã Được Sử Dụng") ;
+        }
+        else
+        {
+          getListProducts();
+        }
       })
       .catch(function (error) {
         console.log(error);
