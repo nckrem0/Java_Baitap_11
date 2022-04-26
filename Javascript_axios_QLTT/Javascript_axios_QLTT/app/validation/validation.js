@@ -31,15 +31,72 @@ function Validation (){
         document.getElementById(errorID).style.display="none";
         return true 
     }
-    this.kiemTraChuoiKyTu = function(value,errorID,msg){
+    this.checkStringCharacter = function(value,errorID,msg){
         var letter ="^[a-zA-Z_ÀÁÂÃÈÉÊẾÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶ" + "ẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợ" + "ụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\\s]+$" ;
         if(value.match(letter)){
-            getEle(errorID).innerHTML = "" ;
-            getEle(errorID).style.display="none";
+            document.getElementById(errorID).innerHTML = "" ;
+            document.getElementById(errorID).style.display="none";
             return true
         }
-        getEle(errorID).innerHTML = msg ;
-        getEle(errorID).style.display="block";
+        document.getElementById(errorID).innerHTML = msg ;
+        document.getElementById(errorID).style.display="block";
         return false
     }
+    this.checkTraEmail = function(value,errorID,msg){
+        var letter = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/ ;
+        if (value.match(letter)){
+            document.getElementById(errorID).innerHTML = "" ;
+            document.getElementById(errorID).style.display="none";
+            return true
+        }
+        document.getElementById(errorID).innerHTML = msg ;
+        document.getElementById(errorID).style.display="block";
+        return false
+    }
+    this.checkPassWord = function(value,errorID,msg){
+        var letter = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{0,}$/ ;
+        if (value.match(letter)){
+            document.getElementById(errorID).innerHTML = "" ;
+            document.getElementById(errorID).style.display="none";
+            return true
+        }
+        document.getElementById(errorID).innerHTML = msg ;
+        document.getElementById(errorID).style.display="block";
+        return false
+    }
+    this.characterLength = function(value,errorID,msg,min,max){
+        if(value.trim().length >= min && value.trim().length <= max){
+            // hợp lệ
+            document.getElementById(errorID).innerHTML = "" ;
+            document.getElementById(errorID).style.display="none";
+            return true
+        }
+        // không hợp lệ
+        document.getElementById(errorID).innerHTML = msg ;
+        document.getElementById(errorID).style.display="block";
+        return false
+    }
+    this.checkUsername = function (value,errorID,msg) {
+        if (value === "nckrem") {
+            document.getElementById(errorID).innerHTML = msg ;
+            document.getElementById(errorID).style.display ="block";
+            return false
+        }
+        document.getElementById(errorID).innerHTML = msg ;
+        document.getElementById(errorID).style.display="none";
+        return true 
+    }
+    var validationService = new Services ();
+    function getDataService() {
+        validationService.fetchData()
+    .then(function(result){
+        renderHTML(result.data);
+        console.log(result.data);
+    })
+    .catch(function(error){
+        console.log(error);
+    })
+    }
 }
+
+

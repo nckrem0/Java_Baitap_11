@@ -2,6 +2,9 @@
 var validation = new Validation();
 function getInfobyUser() {
   var username = document.getElementById("TaiKhoan").value;
+  // if (username == ) {
+    
+  // }
   var name = document.getElementById("HoTen").value;
   var password = document.getElementById("MatKhau").value;
   var email = document.getElementById("Email").value;
@@ -15,47 +18,56 @@ function getInfobyUser() {
 
   //Validation username
   isValid &=
-      validation.checkEmpty(username, "divErrorUserName", "(*) Tài Khoản Không Được Để Trống") ;
+      validation.checkEmpty(username, "divErrorUserName", "(*) Tài Khoản Không Được Để Trống")&&
+      validation.checkUsername(username, "divErrorUserName", "(*) Tài Khoản Đã Được Sử Dụng") ;
 
   //Validation Name
   isValid &=
       validation.checkEmpty(name, "divErrorName", "(*) Họ và Tên Không Được Để Trống") && 
-      validation.kiemTraChuoiKyTu(name, "divErrorName", "(*) Vui Lòng");
+      validation.checkStringCharacter(name, "divErrorName", "(*) Vui Lòng Nhập Đúng Tên");
 
   //Validation Email
   isValid &=
-      validation.checkEmpty(email, "divErrorEmail", "(*) Email Không Được Để Trống") ;
+      validation.checkEmpty(email, "divErrorEmail", "(*) Email Không Được Để Trống")&&
+      validation.checkTraEmail(email, "divErrorEmail", "(*) Vui Lòng Nhập Đúng Định Dạng") ;
 
   //Validation Password
   isValid &=
-      validation.checkEmpty(password, "divErrorPassword", "(*) Mật Khẩu Không Được Để Trống") ;
+      validation.checkEmpty(password, "divErrorPassword", "(*) Mật Khẩu Không Được Để Trống")&&
+      validation.checkPassWord(password, "divErrorPassword", "(*) Mật Khẩu chứa ít nhất 1 chữ in hoa,1 chữ thường , 1 số , 1 ký tự đặc biệt")&&
+      validation.characterLength(password, "divErrorPassword", "(*) Độ Dài Password Từ 6 Đến 10", 6, 10) ;
 
-  //Username
+  //Validation Loại Người Dùng
   isValid &= validation.selectTypeofUser(
     person,
     "divErrorSelectTypeofUser",
     "(*) Loại Người Dùng Không Được Để Trống"
   );
 
-  //Username
+  //Validation Ngôn Ngữ
   isValid &= validation.selectLanguage(
     language,
     "divErrorSelecLanguage",
     "(*) Ngôn Ngữ Không Được Để Trống"
   );
 
-  //Username
+  //Validation Hình Ảnh
   isValid &= validation.checkEmpty(
     picture,
     "divErrorPicture",
     "(*) Hình Ảnh Không Được Để Trống"
   );
 
-  //Username
+  //Validation Mô tả
   isValid &= validation.checkEmpty(
     detail,
     "divErrorDetail",
     "(*) Mô Tả Không Được Để Trống"
+  ) &&
+  validation.characterLength(
+    detail,
+    "divErrorDetail",
+    "(*) Không được vượt quá 60 ký tự",1,60
   );
 
   if (!isValid) return null;
@@ -110,9 +122,12 @@ function renderHTML(arrProducts) {
 
         </tr>
         `;
+        
   }
+  
   document.getElementById("tblDanhSachNguoiDung").innerHTML = content;
 }
+
 
 function deletebyID(id) {
   services
@@ -142,6 +157,7 @@ function addProduct() {
       .addProductbyUser(product)
       .then(function () {
         getListProducts();
+
       })
       .catch(function (error) {
         console.log(error);
@@ -170,6 +186,7 @@ function changebyID(id) {
     .catch(function (error) {
       console.log(error);
     });
+    console.log(result.data.taiKhoan);
 }
 function updateProduct(id) {
   var username = document.getElementById("TaiKhoan").value;
